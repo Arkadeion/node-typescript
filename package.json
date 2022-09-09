@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "task": "echo 'Doing a task'"
   },
   "engines": {
     "node": ">=16"
@@ -16,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/Arkadeion/node-typescript/issues"
   },
-  "homepage": "https://github.com/Arkadeion/node-typescript#readme"
+  "homepage": "https://github.com/Arkadeion/node-typescript#readme",
+  "devDependencies": {
+    "jest": "^29.0.2"
+  }
 }
