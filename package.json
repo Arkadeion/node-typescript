@@ -1,0 +1,20 @@
+{
+  "name": "node-typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arkadeion/node-typescript.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Arkadeion/node-typescript/issues"
+  },
+  "homepage": "https://github.com/Arkadeion/node-typescript#readme"
+}
