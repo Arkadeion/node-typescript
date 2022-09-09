@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "task": "echo 'Doing a task'",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "build": "tsc"
   },
   "engines": {
     "node": ">=16"
