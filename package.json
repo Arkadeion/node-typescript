@@ -9,7 +9,7 @@
     "format": "prettier --write .",
     "lint": "eslint src/ --cache --fix",
     "start": "node --enable-source-maps dist/server.js",
-    "start:dev": "nodemon --watch dist/",
+    "start:dev": "nodemon --watch dist/ --watch .env",
     "test": "jest",
     "task": "echo 'Doing a task'"
   },
@@ -43,6 +43,7 @@
     "typescript": "^4.8.3"
   },
   "dependencies": {
+    "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "express-async-errors": "^3.1.1"
   }
