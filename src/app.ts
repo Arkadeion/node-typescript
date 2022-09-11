@@ -5,7 +5,11 @@ import "express-async-errors";
 const app = express();
 
 app.get("/planets", (request, response) => {
-    response.json([{ name: "Mercury" }, { name: "Venus" }]);
+    response.json([
+        { name: "Mercury" },
+        { name: "Venus" },
+        { name: "Jupiter" },
+    ]);
 });
 
 export default app;
