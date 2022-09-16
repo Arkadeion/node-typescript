@@ -5,6 +5,8 @@ import app from "./app";
 
 const request = supertest(app);
 
+// GET TESTS
+
 describe("GET /planets", () => {
     test("Valid request", async () => {
         const planets = [
@@ -40,17 +42,30 @@ describe("GET /planets", () => {
     });
 });
 
+// POST TESTS
+
 describe("POST /planets", () => {
     test("Valid request", async () => {
         const planet = {
+            id: 5,
             name: "Mercury",
+            description: null,
             diameter: 1234,
             moons: 12,
+            createdAt: "2022-09-16T14:35:22.692Z",
+            updatedAt: "2022-09-16T14:35:22.692Z",
         };
+
+        // @ts-ignore
+        prismaMock.planet.create.mockResolvedValue(planet);
 
         const response = await request
             .post("/planets")
-            .send(planet)
+            .send({
+                name: "Mercury",
+                diameter: 1234,
+                moons: 12,
+            })
             .expect(201)
             .expect("Content-Type", /application\/json/);
 
