@@ -1,7 +1,10 @@
 import "dotenv/config";
 import express from "express";
 import "express-async-errors";
+import cors from "cors";
+
 import prisma from "./lib/prisma/client";
+
 import {
     validate,
     planetSchema,
@@ -12,6 +15,12 @@ import {
 const app = express();
 
 app.use(express.json());
+
+const corsOptions = {
+    origin: "http://localhost:8080",
+};
+
+app.use(cors(corsOptions));
 
 app.get("/planets", async (request, response) => {
     const planets = await prisma.planet.findMany();
