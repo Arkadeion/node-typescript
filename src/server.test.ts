@@ -141,3 +141,90 @@ describe("POST /planets", () => {
         });
     });
 });
+
+// PUT TESTS
+
+describe("PUT /planets/:id", () => {
+    test("Valid request", async () => {
+        const planet = {
+            id: 5,
+            name: "Mercury",
+            description: "Lovely planet",
+            diameter: 1234,
+            moons: 12,
+            createdAt: "2022-09-16T14:35:22.692Z",
+            updatedAt: "2022-09-16T14:35:22.692Z",
+        };
+
+        // @ts-ignore
+        prismaMock.planet.update.mockResolvedValue(planet);
+
+        const response = await request
+            .put("/planets/5")
+            .send({
+                name: "Mercury",
+                description: "Lovely planet",
+                diameter: 1234,
+                moons: 12,
+            })
+            .expect(200)
+            .expect("Content-Type", /application\/json/);
+
+        expect(response.body).toEqual(planet);
+    });
+
+    test("Invalid request", async () => {
+        const planet = {
+            diameter: 1234,
+            moons: 12,
+        };
+
+        const response = await request
+            .put("/planets/23")
+            .send(planet)
+            .expect(422)
+            .expect("Content-Type", /application\/json/);
+
+        expect(response.body).toEqual({
+            errors: {
+                body: expect.any(Array),
+            },
+        });
+    });
+
+    test("Planet does not exist", async () => {
+        // @ts-ignore
+        prismaMock.planet.update.mockRejectedValue(new Error("Error"));
+
+        const response = await request
+            .put("/planets/23")
+            .send({
+                name: "Mercury",
+                description: "Lovely planet",
+                diameter: 1234,
+                moons: 12,
+            })
+            .expect(404)
+            .expect("Content-Type", /text\/html/);
+
+        expect(response.text).toContain("Cannot PUT /planets/23");
+    });
+
+    test("Invalid planet ID", async () => {
+        // @ts-ignore
+        prismaMock.planet.findUnique.mockResolvedValue(null);
+
+        const response = await request
+            .put("/planets/asdf")
+            .send({
+                name: "Mercury",
+                description: "Lovely planet",
+                diameter: 1234,
+                moons: 12,
+            })
+            .expect(404)
+            .expect("Content-Type", /text\/html/);
+
+        expect(response.text).toContain("Cannot PUT /planets/asdf");
+    });
+});
