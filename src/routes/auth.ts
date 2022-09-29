@@ -1,4 +1,4 @@
-import { response, Router } from "express";
+import { Router } from "express";
 import { passport } from "../lib/middleware/passport";
 
 const router = Router();
@@ -9,7 +9,7 @@ router.get("/login", (request, response, next) => {
         !request.query.redirectTo
     ) {
         response.status(400);
-        return next(`Missing redirectTo query string parameter.`);
+        return next("Missing redirectTo query string parameter");
     }
 
     request.session.redirectTo = request.query.redirectTo;
@@ -18,7 +18,7 @@ router.get("/login", (request, response, next) => {
 });
 
 router.get(
-    "/auth/github/login",
+    "/github/login",
     passport.authenticate("github", {
         scope: ["user:email"],
     })
@@ -26,6 +26,7 @@ router.get(
 
 router.get(
     "/github/callback",
+    // @ts-ignore
     passport.authenticate("github", {
         failureRedirect: "/auth/github/login",
         keepSessionInfo: true,
@@ -45,7 +46,7 @@ router.get("/logout", (request, response, next) => {
         !request.query.redirectTo
     ) {
         response.status(400);
-        return next(`Missing redirectTo query string parameter.`);
+        return next("Missing redirectTo query string parameter");
     }
 
     const redirectUrl = request.query.redirectTo;
